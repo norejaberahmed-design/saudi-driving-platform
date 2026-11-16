@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const paths = [
-  { title: "إصدار رخصة لأول مرة", text: "ابدأ بالتحقق من الشروط والفئة المناسبة، ثم راجع خطوات التدريب والتقييم عبر القنوات الرسمية.", url: "https://www.absher.sa/" },
-  { title: "تجديد رخصة القيادة", text: "تحقق من صلاحية الرخصة والمتطلبات والرسوم وأي فحوصات لازمة من خلال الخدمات الرسمية.", url: "https://www.absher.sa/" },
+  { title: "إصدار رخصة لأول مرة", text: "ابدأ بالتحقق من الشروط والفئة المناسبة، ثم راجع خطوات التدريب والتقييم عبر القنوات الرسمية.", url: "https://www.absher.sa/wps/portal/individuals/static/guide/service-contents/" },
+  { title: "تجديد رخصة القيادة", text: "تحقق من صلاحية الرخصة والمتطلبات والرسوم وأي فحوصات لازمة من خلال الخدمات الرسمية.", url: "https://www.absher.sa/wps/portal/individuals/static/guide/service-contents/" },
   { title: "استبدال أو الاعتراف برخصة أجنبية", text: "تختلف الإجراءات بحسب الدولة ونوع الرخصة وحالتها. لا تعتمد على تجربة شخص آخر؛ تحقق من الجهة الرسمية.", url: "https://www.moi.gov.sa/" },
-  { title: "التدريب ومدارس القيادة", text: "استعرض قنوات الجهات المرخصة وتحقق من المواعيد والمتطلبات قبل الحضور.", url: "https://www.absher.sa/" }
+  { title: "التدريب ومدارس القيادة", text: "استعرض قنوات الجهات المرخصة وتحقق من المواعيد والمتطلبات قبل الحضور.", url: "https://www.absher.sa/wps/portal/individuals/static/guide/service-contents/" }
 ];
 
 export const metadata = { title: "دليل إجراءات الرخصة" };
