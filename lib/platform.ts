@@ -3,7 +3,12 @@ export type LearningCategory =
   | "road-rules"
   | "safe-driving"
   | "intersections"
-  | "vehicle-basics";
+  | "vehicle-basics"
+  | "vehicle-control"
+  | "vulnerable-road-users"
+  | "adverse-conditions"
+  | "emergency-response"
+  | "driver-fitness";
 
 export type Lesson = {
   id: string;
@@ -21,11 +26,15 @@ export const learningCategories: Array<{
   description: string;
   icon: string;
 }> = [
-  { id: "traffic-signs", title: "إشارات المرور", description: "افهم العلامات التحذيرية والتنظيمية والإرشادية", icon: "◉" },
-  { id: "road-rules", title: "قواعد الطريق", description: "الأولوية والمسارات والسرعات والالتزام", icon: "↗" },
-  { id: "safe-driving", title: "القيادة الآمنة", description: "مسافة الأمان والانتباه وتجنب المخاطر", icon: "盾" },
-  { id: "intersections", title: "التقاطعات", description: "التعامل الصحيح مع التقاطعات والدوارات", icon: "✣" },
-  { id: "vehicle-basics", title: "أساسيات المركبة", description: "الفحص الأساسي ومكونات السلامة", icon: "▣" }
+  { id: "traffic-signs", title: "الإشارات وعلامات الطريق", description: "افهم اللوحات والخطوط والإشارات المؤقتة.", icon: "◉" },
+  { id: "road-rules", title: "قواعد الطريق والأولوية", description: "تعلم قراءة المواقف واتخاذ القرار الصحيح.", icon: "↗" },
+  { id: "safe-driving", title: "القيادة الوقائية", description: "توقع المخاطر ومسافة الأمان والانتباه.", icon: "盾" },
+  { id: "intersections", title: "التقاطعات والدوارات", description: "الاقتراب والتموضع والعبور الآمن.", icon: "✣" },
+  { id: "vulnerable-road-users", title: "سلامة مرتادي الطريق", description: "المشاة والأطفال والدراجات والمركبات الكبيرة.", icon: "♧" },
+  { id: "adverse-conditions", title: "الظروف الصعبة", description: "المطر والضباب والغبار والليل والطرق المفتوحة.", icon: "☼" },
+  { id: "vehicle-basics", title: "سلامة المركبة", description: "الفحص الأساسي والإطارات والأنوار وحماية الركاب.", icon: "▣" },
+  { id: "emergency-response", title: "الطوارئ والحوادث", description: "التصرف الآمن عند التعطل أو وقوع حادث.", icon: "＋" },
+  { id: "driver-fitness", title: "جاهزية السائق والسلوك", description: "التعب والتشتت والتهور والمسؤولية.", icon: "◌" }
 ];
 
 export const starterLessons: Lesson[] = [
