@@ -65,6 +65,24 @@ Do not expand these short summaries into additional legal exceptions or penaltie
 - The user's accessible GitHub repositories were inventoried. The target is `norejaberahmed-design/saudi-driving-platform`; unrelated projects are not used as traffic-content sources.
 - GitHub search surfaced third-party traffic-safety projects and repositories referencing SHC 602. Their metadata and public code may inform engineering approaches, but none is treated as a legal authority or copied as curriculum.
 
+### Public Saudi driving-test applications — feature benchmark
+
+This is a public-store listing review, not an audit of the apps' internal databases, legal accuracy, or question provenance.
+
+| App listing | Publicly stated features | Product lesson / caution |
+|---|---|---|
+| [اختبار رخصة القيادة السعودية — MSAYA](https://play.google.com/store/apps/details?id=com.msaya.driving.test.saudi) | Listing claims 650+ questions, 25+ mock tests, traffic-light practice, saved difficult/wrong questions and progress statistics. | The category baseline includes a sizeable question bank and error review. The listing's claim that questions are official is not independently verified; do not reuse its questions. |
+| [iDrive KSA](https://play.google.com/store/apps/details?id=com.idrive.saudi.test) | Practice questions, 25+ exams, wrong-answer review, selected questions, statistics and Arabic/English/Urdu. | Multi-language and adaptive revision are expected features. |
+| [امتحان رخصة القيادة السعودية — EBRAHIM DAHAN](https://play.google.com/store/apps/details?id=com.dahan.signals) | Listing describes signs, points, 22 tests and 600+ questions, offline use and performance evaluation. | Sign catalogue, violations/points and offline access are common competitor claims; accuracy and update status need independent verification. |
+| [Saudi Drivers](https://play.google.com/store/apps/details?id=com.app.saudidrivers) | Listing claims 300 questions, sign imagery, multiple languages and test simulation. | Visual learning and language support matter to residents with different language backgrounds. |
+| [Saudi Driving Test 2026 — KSA](https://play.google.com/store/apps/details?id=com.saudidriving.app) | Listing claims 473 questions, 93 signs, 8 languages, spaced repetition and offline practice. | This is a feature claim from the publisher, not a verified count of official content. It highlights the scale the platform must eventually meet. |
+| [رخصتي / My License](https://play.google.com/store/apps/details?id=com.poiralabs.ar.sa.drive) | Listing claims question banks, sign library, traffic violations, audio lessons, multiplayer challenges, progress tracking, offline use and 6 languages. | Differentiation should not be another static question bank. Safety scenarios, provenance, accessible teaching and current legal sources must be the product's foundation. |
+| [Saudi Driving Licence Test — App Store](https://apps.apple.com/sa/app/saudi-driving-licence-test/id1501386883) | Listing describes offline learning, topic tests, error review, mock exams, languages and cites Saudi Traffic Law and SHC 602. | Source transparency is a useful baseline; claims must be checked against current primary sources. |
+
+**Benchmark conclusion:** a 48-question first tranche is not competitive with the public feature claims above, and the app does not yet have its full sign catalogue, image-recognition tests, offline mode, multiple languages, hazard-perception media, or complete current violation schedules. The product's differentiator must be a genuinely sourced, safety-first curriculum and verified sign/device library—not inflated question counts or claims of reproducing the actual exam.
+
+Do not scrape, redistribute, or closely paraphrase the question banks, screenshots, images, audio, videos, or other protected materials from these apps. Use public listings to understand user expectations and feature patterns only.
+
 ## Data added by this tranche
 
 The idempotent seed file `prisma/research-curriculum-seed.ts` adds:
