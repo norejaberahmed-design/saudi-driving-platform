@@ -120,7 +120,6 @@ CREATE INDEX "Session_userId_idx" ON "Session"("userId");
 CREATE INDEX "Account_userId_idx" ON "Account"("userId");
 CREATE INDEX "Verification_identifier_idx" ON "Verification"("identifier");
 CREATE UNIQUE INDEX "Lesson_slug_key" ON "Lesson"("slug");
-CREATE UNIQUE INDEX "LessonSource_lessonId_sourceId_key" ON "LessonSource"("lessonId","sourceId");
 CREATE INDEX "QuizQuestion_category_status_idx" ON "QuizQuestion"("category","status");
 CREATE INDEX "QuizAttempt_userId_completedAt_idx" ON "QuizAttempt"("userId","completedAt");
 CREATE INDEX "QuizAttempt_visitorKey_completedAt_idx" ON "QuizAttempt"("visitorKey","completedAt");
