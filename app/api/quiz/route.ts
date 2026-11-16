@@ -11,7 +11,7 @@ export async function GET() {
   const questions = await prisma.quizQuestion.findMany({
     where: { status: "published" },
     orderBy: { createdAt: "asc" },
-    take: 24,
+    take: 60,
     select: {
       id: true,
       prompt: true,
