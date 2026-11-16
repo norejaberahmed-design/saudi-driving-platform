@@ -80,7 +80,7 @@ async function main() {
       id: "source-saudi-traffic-law",
       title: "نظام المرور السعودي",
       publisher: "هيئة الخبراء بمجلس الوزراء",
-      url: "https://laws.boe.gov.sa/",
+      url: "https://laws.boe.gov.sa/Files/Download/?attId=5b9ce681-fcdf-4ff4-96a3-adbb0125294d",
       isOfficial: true,
       notes: "مرجع رسمي؛ يجب ربط كل مادة تعليمية بالمادة المحددة وتاريخ التحقق."
     }
