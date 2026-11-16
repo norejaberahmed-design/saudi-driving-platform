@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { gradeQuiz } from "@/lib/quiz";
+import { gradeQuiz } from "./quiz";
 
 describe("gradeQuiz", () => {
   const questions = [
