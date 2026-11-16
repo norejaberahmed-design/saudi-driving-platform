@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/dal";
 import { prisma } from "@/lib/prisma";
+import SignOutButton from "@/app/dashboard/sign-out-button";
 
 export const dynamic = "force-dynamic";
 
@@ -21,7 +22,7 @@ export default async function DashboardPage() {
   const average = attempts.length ? Math.round(attempts.reduce((sum, item) => sum + item.score, 0) / attempts.length) : 0;
 
   return <main className="dashboard-shell">
-    <header className="dashboard-header"><Link className="brand" href="/"><span className="brand-mark">م</span><strong>مسار الرخصة</strong></Link><form action="/api/auth/sign-out" method="post"><button className="button button-quiet">تسجيل الخروج</button></form></header>
+    <header className="dashboard-header"><Link className="brand" href="/"><span className="brand-mark">م</span><strong>مسار الرخصة</strong></Link><SignOutButton /></header>
     <section className="dashboard-welcome"><span className="section-kicker">مساحة المتعلم</span><h1>أهلاً، {session.user.name}</h1><p>هذه مساحتك لمتابعة التعلم والاستعداد بثقة.</p></section>
     <div className="dashboard-stats"><article><strong>{attempts.length}</strong><span>اختبارات مكتملة</span></article><article><strong>{average}%</strong><span>متوسط نتائجك الأخيرة</span></article><article><strong>{progressCount}</strong><span>دروس أتممتها</span></article></div>
     <section className="dashboard-actions"><Link href="/quiz" className="dashboard-action"><span>01</span><div><h2>ابدأ اختباراً تدريبياً</h2><p>اختبر فهمك وتعرّف على الإجابات مع التفسير.</p></div><b>←</b></Link><Link href="/learn" className="dashboard-action"><span>02</span><div><h2>تابع الأكاديمية</h2><p>تعلّم الإشارات وقواعد الطريق والقيادة الآمنة.</p></div><b>←</b></Link><Link href="/license-guide" className="dashboard-action"><span>03</span><div><h2>دليل إجراءات الرخصة</h2><p>تعرّف على المسارات العامة ومصادر التحقق الرسمية.</p></div><b>←</b></Link></section>
