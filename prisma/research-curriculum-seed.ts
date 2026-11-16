@@ -75,6 +75,51 @@ const sources = [
     notes: "مرجع تعليمي أسترالي للمقارنة في منهجية تعليم قواعد الطريق والسلامة؛ تختلف القواعد المحلية."
   },
   {
+    id: "source-uae-rta-dubai-handbook",
+    title: "Dubai Drivers' Handbook and licensing guidance",
+    publisher: "Roads and Transport Authority – Dubai",
+    url: "https://licensing.rta.ae/handbook/DrivingSafelyInDubaiEN.pdf",
+    isOfficial: true,
+    reviewedAt,
+    notes: "مرجع مقارن لإمارة دبي فقط. قواعد دبي ليست بالضرورة قواعد كل الإمارات ولا يجوز نقلها للمسار السعودي."
+  },
+  {
+    id: "source-oman-rop-traffic-law",
+    title: "قانون المرور العماني",
+    publisher: "شرطة عمان السلطانية – الإدارة العامة للمرور",
+    url: "https://www.rop.gov.om/english/roplaws.aspx",
+    isOfficial: true,
+    reviewedAt,
+    notes: "بوابة رسمية لقوانين شرطة عمان السلطانية، ومنها قانون المرور. يلزم تنزيل النص العربي والتحقق من التعديلات قبل إعداد محتوى مقارن."
+  },
+  {
+    id: "source-qatar-hukoomi-driving",
+    title: "خدمات القيادة وقواعد المرور",
+    publisher: "بوابة حكومي – دولة قطر",
+    url: "https://portal.www.gov.qa/wps/wcm/connect/Hukoomi%2BWeb%2BContent/Hukoomi/Topics/Transportation/Driving/",
+    isOfficial: true,
+    reviewedAt,
+    notes: "معلومات حكومية قطرية عن القيادة والمخالفات والإجراءات. الأرقام والمتطلبات تتغير ويجب إعادة التحقق من الجهة المختصة."
+  },
+  {
+    id: "source-kuwait-traffic-law",
+    title: "قانون المرور الكويتي",
+    publisher: "وزارة الداخلية – الإدارة العامة للمرور / البوابة الحكومية",
+    url: "https://www.e.gov.kw/sites/kgoEnglish/Forms/TrafficLaw.pdf",
+    isOfficial: true,
+    reviewedAt,
+    notes: "مرجع قانوني كويتي للمقارنة فقط. لا تخلط أحكامه مع النظام السعودي."
+  },
+  {
+    id: "source-bahrain-traffic-law",
+    title: "قانون المرور وخدمات الإدارة العامة للمرور",
+    publisher: "البوابة الوطنية لمملكة البحرين",
+    url: "https://www.bahrain.bh/wps/portal/en/!ut/p/z1/rVNLU8IwEP4reODY7tI3x-KrPkYURGguTtoGGm3T2EZw_PWm6gVHKM64l-zOfrv7Jd8GCCyACLrmK6p4JWih45h4j4MLF6PgGDG6uT1BbxwFvuWP7PGtDfNtwOB-hnj3cBFOxmcnA3QGQA6pxx0W4mH1ewBkf_uOeuuX-hBHE2tkI55P8Vf-W4AO_g9AgMiUZxC7fsYSb-kYbkDRcBzbMoIhcww_QM_DYGi76LboVCipcogTIR9p3UeaVK-qp3LWe-ZilVVlHxOa15QL3ivYijfFp5pNH2umXZb1VCV5qmNV0-WSp3DZxVKvAX96eSGhnl4Jxd4ULP5v_Ly9VYcK24Afa3aFHYB2D7s2geyVemxBrKX2d5J0LZivOdvATFR1qb_O9I_KRvg9YQeF8Nr66knT9j0h3sjGlFWtCqYas-DiuU22J5WynZpWpcmT0txIk2YlF2bOCu1KaW5YoZPMbBit0xymTIAsZ62Vge0Wa3k6id5HN8a5Dp3w6AMN1W6F/",
+    isOfficial: true,
+    reviewedAt,
+    notes: "مصدر حكومي بحريني؛ يتضمن تعديلات على قانون المرور، ومنها قانون رقم 30 لسنة 2025. راجع النصوص المحدثة قبل استخدام أي مادة."
+  },
+  {
     id: "source-singapore-traffic-police",
     title: "Basic and Final Driving Theory Handbooks",
     publisher: "Singapore Police Force – Traffic Police",
