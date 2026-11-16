@@ -26,7 +26,7 @@
 ## التشغيل المحلي
 1. استخدم Node.js 20.9 أو أحدث.
 2. انسخ `.env.example` إلى `.env`.
-3. ضع عنوان PostgreSQL في `DATABASE_URL`.
+3. ضع عنوان PostgreSQL المجمّع (pooled) في `DATABASE_URL` وعنوان الاتصال المباشر في `DIRECT_URL` لاستخدامه في عمليات الترحيل.
 4. أنشئ سراً عشوائياً قوياً لا يقل عن 32 حرفاً في `BETTER_AUTH_SECRET`.
 5. اضبط `BETTER_AUTH_URL=http://localhost:3000`.
 6. شغّل:
