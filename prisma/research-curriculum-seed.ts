@@ -385,8 +385,8 @@ async function main() {
   for (const lesson of lessons) {
     const saved = await prisma.lesson.upsert({
       where: { slug: lesson.slug },
-      update: { ...lesson, status: "published", lastReviewedAt: reviewedAt },
-      create: { ...lesson, status: "published", lastReviewedAt: reviewedAt }
+      update: { ...lesson, status: "published" },
+      create: { ...lesson, status: "published" }
     });
     for (const sourceId of links[lesson.slug] ?? []) {
       await prisma.lessonSource.upsert({
