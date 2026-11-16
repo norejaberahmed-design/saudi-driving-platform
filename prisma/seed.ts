@@ -97,6 +97,57 @@ async function main() {
       notes: "نسخة منشورة على موقع وسيط؛ لا يُفترض أنها نسخة حديثة أو أن إعادة استخدام محتواها مسموحة قبل التحقق."
     }
   });
+
+  const lessons = [
+    {
+      slug: "understanding-traffic-signs",
+      title: "كيف تفهم إشارات المرور؟",
+      summary: "مدخل إلى تصنيف الإشارات وقراءة الرسالة التي تنقلها للسائق.",
+      category: "إشارات المرور",
+      level: "مبتدئ",
+      durationMinutes: 8,
+      status: "draft",
+      content: "تساعد إشارات المرور على تنظيم حركة الطريق وتنبيه السائقين وإرشادهم. ابدأ بملاحظة شكل الإشارة ولونها ومكانها، ثم اقرأ معناها من المرجع المعتمد. لا تعتمد على اللون وحده عند وجود لوحة إضافية أو ظرف مروري خاص.\\n\\nهذه مادة تأسيسية داخلية، وتحتاج إلى تدقيق بصري ومراجعة مرورية سعودية قبل النشر."
+    },
+    {
+      slug: "safe-following-distance",
+      title: "مسافة الأمان أثناء القيادة",
+      summary: "لماذا تحتاج إلى مساحة ووقت كافيين للاستجابة والتوقف؟",
+      category: "القيادة الآمنة",
+      level: "مبتدئ",
+      durationMinutes: 7,
+      status: "draft",
+      content: "تمنحك مسافة الأمان وقتاً إضافياً لملاحظة ما يحدث أمامك والاستجابة بهدوء. قد تحتاج إلى زيادة المسافة عندما تقل الرؤية أو يصبح سطح الطريق زلقاً أو تتغير ظروف الحركة.\\n\\nهذه مادة توعوية أولية، وتحتاج إلى مراجعة المحتوى السعودي المعتمد قبل النشر."
+    },
+    {
+      slug: "safe-lane-change",
+      title: "الاستعداد لتغيير المسار",
+      summary: "خطوات التحقق من المرايا والمنطقة غير المرئية قبل الانتقال.",
+      category: "قواعد الطريق",
+      level: "مبتدئ",
+      durationMinutes: 6,
+      status: "draft",
+      content: "لا تنتقل إلى مسار آخر اعتماداً على النظر إلى المرآة وحدها. استخدم إشارة الاتجاه، وتحقق من المرايا والمنطقة غير المرئية، وتأكد من وجود مساحة كافية قبل تنفيذ الحركة بسلاسة.\\n\\nهذه مادة توعوية أولية، وتحتاج إلى مراجعة مرورية سعودية قبل النشر."
+    }
+  ];
+
+  for (const lesson of lessons) {
+    const saved = await prisma.lesson.upsert({
+      where: { slug: lesson.slug },
+      update: lesson,
+      create: lesson
+    });
+    await prisma.lessonSource.upsert({
+      where: { lessonId_sourceId: { lessonId: saved.id, sourceId: "source-saudi-traffic-law" } },
+      update: {},
+      create: { lessonId: saved.id, sourceId: "source-saudi-traffic-law" }
+    });
+    await prisma.lessonSource.upsert({
+      where: { lessonId_sourceId: { lessonId: saved.id, sourceId: "source-trainee-handbook" } },
+      update: {},
+      create: { lessonId: saved.id, sourceId: "source-trainee-handbook" }
+    });
+  }
 }
 
 main().finally(async () => prisma.$disconnect());
