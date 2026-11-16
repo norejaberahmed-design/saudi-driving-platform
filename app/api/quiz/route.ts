@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/dal";
 import { quizSubmissionSchema } from "@/lib/validation";
+import { gradeQuiz } from "@/lib/quiz";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -19,7 +20,6 @@ export async function GET() {
       difficulty: true
     }
   });
-
   return NextResponse.json({ questions });
 }
 
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   }
 
   const session = await getSession();
-  const ids = parsed.data.answers.map((answer) => answer.questionId);
+  const ids = parsed.data.answers.map(answer => answer.questionId);
   const uniqueIds = [...new Set(ids)];
   if (uniqueIds.length !== ids.length) {
     return NextResponse.json({ error: "يوجد سؤال مكرر في الإجابات." }, { status: 400 });
@@ -45,31 +45,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "تعذر التحقق من بعض الأسئلة." }, { status: 400 });
   }
 
-  const questionMap = new Map(questions.map((question) => [question.id, question]));
-  const graded = parsed.data.answers.map((answer) => {
-    const question = questionMap.get(answer.questionId)!;
-    return {
-      questionId: answer.questionId,
-      selectedIndex: answer.selectedIndex,
-      isCorrect: answer.selectedIndex === question.correctIndex,
-      explanation: question.explanation,
-      prompt: question.prompt
-    };
-  });
-
-  const correctCount = graded.filter((answer) => answer.isCorrect).length;
-  const totalCount = graded.length;
-  const score = Math.round((correctCount / totalCount) * 100);
-
+  const graded = gradeQuiz(parsed.data.answers, questions);
   const attempt = await prisma.quizAttempt.create({
     data: {
       userId: session?.user.id,
       visitorKey: session ? null : parsed.data.visitorKey,
-      score,
-      correctCount,
-      totalCount,
+      score: graded.score,
+      correctCount: graded.correctCount,
+      totalCount: graded.totalCount,
       answers: {
-        create: graded.map((answer) => ({
+        create: graded.results.map(answer => ({
           questionId: answer.questionId,
           selectedIndex: answer.selectedIndex,
           isCorrect: answer.isCorrect
@@ -79,10 +64,5 @@ export async function POST(request: Request) {
     select: { id: true, score: true, correctCount: true, totalCount: true, completedAt: true }
   });
 
-  return NextResponse.json({
-    attempt,
-    results: graded.map(({ questionId, selectedIndex, isCorrect, explanation, prompt }) => ({
-      questionId, selectedIndex, isCorrect, explanation, prompt
-    }))
-  });
+  return NextResponse.json({ attempt, results: graded.results });
 }
