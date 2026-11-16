@@ -6,6 +6,15 @@ import { prisma } from "@/lib/prisma";
 export const auth = betterAuth({
   secret: process.env.BETTER_AUTH_SECRET ?? "local-development-secret-change-before-deployment-2026",
   database: prismaAdapter(prisma, { provider: "postgresql" }),
+  rateLimit: {
+    enabled: true,
+    window: 60,
+    max: 100,
+    customRules: {
+      "/sign-in/email": { window: 60, max: 5 },
+      "/sign-up/email": { window: 60, max: 5 }
+    }
+  },
   emailAndPassword: {
     enabled: true,
     minPasswordLength: 10,
