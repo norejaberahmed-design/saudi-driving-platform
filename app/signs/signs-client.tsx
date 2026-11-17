@@ -71,6 +71,20 @@ const devices: Device[] = [
 ];
 
 function DeviceVisual({device}:{device:Device}) {
+  if (["red-signal","yellow-signal","green-signal","flashing-red","flashing-yellow","arrow-signal","temporary-signal","audible-pedestrian"].includes(device.id)) {
+    const activeColor = device.id.includes("red") ? "#d52d32" : device.id.includes("yellow") ? "#f2bd36" : device.id === "green-signal" ? "#269b61" : "#e7e7e7";
+    return <div className="sign-visual" aria-label={device.title}>
+      <svg viewBox="0 0 240 150" role="img" aria-hidden="true" style={{width:"100%",maxWidth:260,height:150}}>
+        <rect x="82" y="8" width="76" height="132" rx="14" fill="#252a30" stroke="#111820" strokeWidth="4"/>
+        <circle cx="120" cy="34" r="17" fill={device.id==="red-signal"||device.id==="flashing-red"||device.id==="temporary-signal"?"#d52d32":"#63383a"} stroke="#111" strokeWidth="2"/>
+        <circle cx="120" cy="74" r="17" fill={device.id==="yellow-signal"||device.id==="flashing-yellow"?"#f2bd36":"#66552e"} stroke="#111" strokeWidth="2"/>
+        <circle cx="120" cy="114" r="17" fill={device.id==="green-signal"?"#269b61":"#315344"} stroke="#111" strokeWidth="2"/>
+        {device.id==="arrow-signal" && <path d="M94 74h43m-14-14 14 14-14 14" fill="none" stroke="#fff" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>}
+        {device.id==="audible-pedestrian" && <g fill="none" stroke="#263746" strokeWidth="5" strokeLinecap="round"><circle cx="190" cy="47" r="8" fill="#263746"/><path d="M190 58v35m0-23-17 16m17-16 15 13m-15 10-14 24m14-24 15 24M211 48q12 12 0 24m8-32q20 20 0 40"/></g>}
+        {device.id==="temporary-signal" && <g><path d="M42 138 60 83l18 55Z" fill="#ef8c27" stroke="#8a4b16" strokeWidth="3"/><path d="M46 125h28" stroke="#fff" strokeWidth="6"/></g>}
+      </svg>
+    </div>;
+  }
   if (device.shape === "text") return <div className="sign-visual"><div className="sign-info-board"><small>{device.id.toUpperCase()}</small><b>{device.title}</b></div></div>;
   if (device.shape === "line-solid") return <div className="road-visual"><div className="road-asphalt"><i className="mark-solid"/></div></div>;
   if (device.shape === "line-dash") return <div className="road-visual"><div className="road-asphalt"><i className="mark-dashed"/></div></div>;
