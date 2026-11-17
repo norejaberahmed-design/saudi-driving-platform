@@ -72,7 +72,6 @@ const devices: Device[] = [
 
 function DeviceVisual({device}:{device:Device}) {
   if (["red-signal","yellow-signal","green-signal","flashing-red","flashing-yellow","arrow-signal","temporary-signal","audible-pedestrian"].includes(device.id)) {
-    const activeColor = device.id.includes("red") ? "#d52d32" : device.id.includes("yellow") ? "#f2bd36" : device.id === "green-signal" ? "#269b61" : "#e7e7e7";
     return <div className="sign-visual" aria-label={device.title}>
       <svg viewBox="0 0 240 150" role="img" aria-hidden="true" style={{width:"100%",maxWidth:260,height:150}}>
         <rect x="82" y="8" width="76" height="132" rx="14" fill="#252a30" stroke="#111820" strokeWidth="4"/>
