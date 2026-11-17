@@ -16,6 +16,20 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ci -d ci"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     env:
       DATABASE_URL: postgresql://ci:ci@localhost:5432/ci?schema=public
       DIRECT_URL: postgresql://ci:ci@localhost:5432/ci?schema=public
@@ -38,5 +52,7 @@ jobs:
         run: npm run typecheck
       - name: Validate Prisma schema
         run: npx prisma validate
+      - name: Apply migrations and seed database
+        run: npm run db:setup
       - name: Production build
         run: npm run build
