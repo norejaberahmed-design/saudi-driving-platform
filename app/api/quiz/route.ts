@@ -34,9 +34,21 @@ export async function GET(request: Request) {
     .sort((a, b) => a.sort - b.sort)
     .slice(0, count)
     .map(({ value }) => value);
+  const categories = await prisma.quizQuestion.groupBy({
+    by: ["category"],
+    where: { status: "published" },
+    _count: { _all: true },
+    orderBy: { category: "asc" }
+  });
   return NextResponse.json({
     questions,
-    meta: { requestedCount: count, availableCount: available.length, returnedCount: questions.length, category: category || null }
+    meta: {
+      requestedCount: count,
+      availableCount: available.length,
+      returnedCount: questions.length,
+      category: category || null,
+      categories: categories.map(item => ({ name: item.category, count: item._count._all }))
+    }
   });
 }
 
