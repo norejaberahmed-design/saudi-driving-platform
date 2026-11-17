@@ -83,3 +83,14 @@ a{color:inherit;text-decoration:none}
 .weak-area>div:first-child span{color:var(--muted);font-size:11px}
 .weak-track{height:7px;background:#edf1ec;border-radius:10px;overflow:hidden}
 .weak-track i{display:block;height:100%;background:#c28a48;border-radius:10px}
+
+
+/* Saved learner mistake review */
+.mistakes-summary{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin:18px 0;color:var(--muted);font-size:12px}
+.mistakes-summary strong{font-size:28px;color:var(--green)}
+.mistakes-list{display:grid;gap:12px}
+.mistake-card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:18px}
+.mistake-card h2{font-size:15px;line-height:1.8;margin:12px 0}
+.mistake-card>p{font-size:12px;line-height:1.9;color:var(--muted);margin:7px 0}
+.mistake-card .mistake-selected strong{color:#a45d45}
+.mistake-card .mistake-correct strong{color:var(--green)}
