@@ -21,7 +21,7 @@ async function main() {
   const rows = await prisma.$queryRaw`
     SELECT table_name, column_name
     FROM information_schema.columns
-    WHERE table_schema = 'public'
+    WHERE table_schema = 'public' AND table_name <> '_prisma_migrations'
     ORDER BY table_name, ordinal_position
   `;
   const actual = new Map();
@@ -53,11 +53,15 @@ async function main() {
   `;
   if (migrationTable[0]?.exists) {
     const history = await prisma.$queryRaw`
-      SELECT migration_name FROM public."_prisma_migrations"
+      SELECT migration_name, finished_at FROM public."_prisma_migrations"
     `;
-    if (history.some(row => row.migration_name === initialMigration)) {
+    const initialRecord = history.find(row => row.migration_name === initialMigration);
+    if (initialRecord?.finished_at) {
       console.log("Initial migration is already recorded; no baseline action needed.");
       return;
+    }
+    if (initialRecord && !initialRecord.finished_at) {
+      throw new Error("The initial migration has an unfinished history record. Manual review is required.");
     }
     if (history.length > 0) {
       throw new Error("Prisma migration history exists but does not contain the expected baseline. Manual review is required.");
