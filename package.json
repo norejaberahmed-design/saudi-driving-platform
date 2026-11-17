@@ -14,7 +14,9 @@
     "db:seed": "tsx prisma/seed.ts && tsx prisma/safety-seed.ts && tsx prisma/advanced-safety-seed.ts && tsx prisma/research-curriculum-seed.ts && tsx prisma/traffic-device-seed.ts",
     "postinstall": "prisma generate",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "db:baseline": "node scripts/baseline-existing-db.mjs",
+    "db:setup": "npm run db:baseline && npm run db:deploy && npm run db:seed"
   },
   "dependencies": {
     "next": "15.5.29",
