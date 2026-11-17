@@ -11,11 +11,15 @@
 ## Core domains
 - Identity: user, session, account, verification.
 - Learning: lesson, source, lesson-source, lesson progress.
-- Assessment: published question bank, attempts, and individual answers.
+- Assessment: published question bank, attempts, individual answers, and saved wrong-answer review.
+- Learner analytics: category-level weak-area summaries across general and traffic-device exams.
+- Traffic-device learning: PostgreSQL-backed starter catalogue, server-side answer keys, device attempts, and individual responses.
 - License guidance: public informational pages linking to official channels.
 
 ## Security boundaries
-- Correct answers are only read by the server during grading.
+- Correct answers for the database-backed quiz and traffic-device exams are only read by the server during grading.
+- Public traffic-device reads explicitly omit the answer index and explanation; those are returned only after a validated submission.
+- Better Auth refuses to initialize if BETTER_AUTH_SECRET is missing or shorter than 32 characters.
 - Quiz submissions are validated and graded server-side.
 - Authenticated attempt history is associated with the verified session user.
 - The data access helper is server-only.
@@ -32,3 +36,20 @@
 
 ## Environment
 Copy `.env.example` to `.env`, set a PostgreSQL URL and a random Better Auth secret of at least 32 characters. Do not commit secrets.
+
+
+## API contracts
+- `GET /api/lessons?category=...`: published lesson summaries and source metadata; includes completion state for the signed-in learner.
+- `GET /api/lessons/:slug`: one published lesson and its source references.
+- `GET /api/quiz?count=20&category=...`: randomized public questions and available category counts; never returns answer keys.
+- `POST /api/quiz`: validates unique question selections, grades on the server and persists the attempt.
+- `GET /api/attempts`: authenticated learner's recent attempt history with answer review data.
+- `GET /api/traffic-devices?group=...`: published traffic-device study cards; answer keys are excluded.
+- `POST /api/traffic-devices/attempt`: validates and grades the traffic-device exam on the server and persists the result.
+
+## Database rollout
+The traffic-device tables are additive. Apply migrations with `npm run db:deploy`, then run the idempotent seed command with `npm run db:seed`. Do not reset or drop existing tables. The starter catalogue is not an exhaustive official Saudi inventory.
+
+
+## Existing database baseline
+The connected Neon database already contains the exact initial Prisma schema but does not have a `_prisma_migrations` history table. The `scripts/baseline-existing-db.mjs` script checks the exact set of 11 expected base tables and every expected column before it records `20261116000100_initial` as applied. It makes no changes to application rows. Empty databases are left for Prisma to initialize normally; partial or unexpected schemas fail closed. Then `npm run db:deploy` applies the additive traffic-device migration and `npm run db:seed` performs idempotent content seeding.

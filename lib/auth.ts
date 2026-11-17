@@ -3,8 +3,13 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "@/lib/prisma";
 
+const authSecret = process.env.BETTER_AUTH_SECRET;
+if (!authSecret || authSecret.length < 32) {
+  throw new Error("BETTER_AUTH_SECRET must be configured with at least 32 characters.");
+}
+
 export const auth = betterAuth({
-  secret: process.env.BETTER_AUTH_SECRET ?? "local-development-secret-change-before-deployment-2026",
+  secret: authSecret,
   database: prismaAdapter(prisma, { provider: "postgresql" }),
   rateLimit: {
     enabled: true,

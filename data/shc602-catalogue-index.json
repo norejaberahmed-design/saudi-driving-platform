@@ -1,0 +1,25 @@
+{
+  "sourceCode": "SHC 602",
+  "arabicTitle": "الدليل الموحد لأجهزة التحكم المروري",
+  "englishTitle": "Manual on Uniform Traffic Control Devices",
+  "publisher": "Roads General Authority, Kingdom of Saudi Arabia",
+  "edition": "2023, 1st Edition",
+  "officialArabicPdf": "https://istitlaa.scbc.gov.sa/ar/transportation/mot/saudihighwaycode/Documents/%D8%A7%D9%84%D8%AF%D9%84%D9%8A%D9%84%20%D8%A7%D9%84%D9%85%D9%88%D8%AD%D8%AF%20%D9%84%D8%A3%D8%AC%D9%87%D8%B2%D8%A9%20%D8%A7%D9%84%D8%AA%D8%AD%D9%83%D9%85%20%D8%A7%D9%84%D9%85%D8%B1%D9%88%D8%B1%D9%8A%20602.pdf",
+  "officialEnglishPdf": "https://istitlaa.ncc.gov.sa/ar/transportation/mot/saudihighwaycode/Documents/SHC%20602%20final.pdf",
+  "officialCodePortal": "https://istitlaa.scbc.gov.sa/ar/Transportation/Mot/SaudiHighwayCode/Pages/default.aspx",
+  "status": "source_index_only",
+  "sourceHandling": {
+    "arabicPdfObservedSizeBytes": 32267470,
+    "webExtraction": "The supplied Arabic PDF URL is registered as the preferred Arabic source. Automated page extraction must be completed in bounded page ranges because the full PDF exceeds the web reader's single-document size limit.",
+    "catalogueCoverage": "Extract every individual sign, supplementary plate, pavement marking, signal face/state, temporary work-zone device, and appendix catalogue row. Do not infer an item from its category heading.",
+    "imageRights": "Check reuse rights before copying source figures into the app; otherwise redraw faithfully and preserve source page/figure provenance."
+  },
+  "statusMeaning": "This record registers the authoritative source only. It is not an extracted item-level catalogue or completed question bank.",
+  "acceptanceRules": [
+    "Every catalogue row in Appendices A-H must be reconciled to a unique item or documented variant.",
+    "Every item must include Arabic name, official code where present, exact source page and figure/table, category, visual representation, meaning, required driver action, common mistake, and review status.",
+    "Every published item must have at least one original question; important or safety-critical items should have multiple scenario questions.",
+    "Tests must support a full-coverage mode that samples every published item and a focused practice mode by category.",
+    "Do not report 100% coverage until the full source catalogue has been reconciled and reviewed."
+  ]
+}

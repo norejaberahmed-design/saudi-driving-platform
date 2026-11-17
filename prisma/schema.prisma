@@ -20,6 +20,7 @@ model User {
   accounts      Account[]
   quizAttempts  QuizAttempt[]
   lessonProgress LessonProgress[]
+  trafficDeviceAttempts TrafficDeviceAttempt[]
 }
 
 model Session {
@@ -158,4 +159,53 @@ model LessonProgress {
 
   @@unique([userId, lessonId])
   @@index([userId])
+}
+
+model TrafficDevice {
+  id                String                @id
+  group             String
+  title             String
+  meaning           String
+  action            String
+  context           String
+  shape             String
+  question          String
+  choices           Json
+  answer            Int
+  explanation       String
+  officialReference String?
+  status            String                @default("draft")
+  createdAt         DateTime              @default(now())
+  updatedAt         DateTime              @updatedAt
+  answers           TrafficDeviceAnswer[]
+
+  @@index([group, status])
+}
+
+model TrafficDeviceAttempt {
+  id           String                @id @default(cuid())
+  userId       String?
+  visitorKey   String?
+  score        Int
+  correctCount Int
+  totalCount   Int
+  completedAt  DateTime              @default(now())
+  user         User?                 @relation(fields: [userId], references: [id], onDelete: SetNull)
+  answers      TrafficDeviceAnswer[]
+
+  @@index([userId, completedAt])
+  @@index([visitorKey, completedAt])
+}
+
+model TrafficDeviceAnswer {
+  id           String               @id @default(cuid())
+  attemptId    String
+  deviceId     String
+  selectedIndex Int
+  isCorrect    Boolean
+  attempt      TrafficDeviceAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  device       TrafficDevice        @relation(fields: [deviceId], references: [id], onDelete: Restrict)
+
+  @@index([attemptId])
+  @@index([deviceId])
 }
