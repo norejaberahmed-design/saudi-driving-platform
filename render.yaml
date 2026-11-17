@@ -17,4 +17,4 @@ services:
       - key: BETTER_AUTH_SECRET
         generateValue: true
       - key: BETTER_AUTH_URL
-        value: https://saudi-driving-platform-preview-dq5z.onrender.com
+        value: https://saudi-driving-platform-preview-y22l.onrender.com
