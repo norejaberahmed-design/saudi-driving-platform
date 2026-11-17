@@ -19,7 +19,7 @@ export default function HomePage() {
         <div className="eyebrow"><span className="pulse" /> السلامة أولاً في كل رحلة</div>
         <h1>افهم الطريق.<br/><em>واحْمِ نفسك والآخرين.</em></h1>
         <p className="hero-lead">منصة تعليمية سعودية مستقلة لا تكتفي بحفظ أسئلة الرخصة. تتعلم فيها قراءة الطريق، وتوقع المخاطر، واحترام جميع مرتاديه، والاستعداد للتدريب العملي والاختبار.</p>
-        <div className="hero-actions"><Link className="button button-primary" href="/learn">ابدأ رحلة التعلم <span>←</span></Link><Link className="button button-quiet" href="/quiz">اختبر معلوماتك</Link></div>
+        <div className="hero-actions"><Link className="button button-primary" href="/learn">ابدأ رحلة التعلم <span>←</span></Link><Link className="button button-quiet" href="/signs">اختبر الإشارات والعلامات</Link></div>
         <div className="trust-line"><span className="shield">✓</span> لا نطلب بيانات أبشر · مصادر واضحة · نتائج تدريبية</div>
       </div>
       <div className="hero-art" aria-label="رسم توضيحي لطريق يقود إلى وجهة"><div className="art-orbit orbit-one"/><div className="art-orbit orbit-two"/><div className="sun-disc"/><div className="road-scene"><div className="road-line"/><div className="road-center"/><div className="road-sign"><span>قف</span></div><div className="destination"><span>وجهتك</span><b>●</b></div></div><div className="art-caption"><span className="caption-dot"/> تعلّم خطوة بخطوة</div></div>
