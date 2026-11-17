@@ -7,11 +7,19 @@ import { gradeQuiz } from "@/lib/quiz";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET() {
-  const questions = await prisma.quizQuestion.findMany({
-    where: { status: "published" },
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const category = url.searchParams.get("category")?.trim();
+  const requestedCount = Number(url.searchParams.get("count") ?? 20);
+  const count = Number.isFinite(requestedCount) ? Math.min(30, Math.max(1, Math.floor(requestedCount))) : 20;
+  const where = {
+    status: "published",
+    ...(category && category.length <= 80 ? { category } : {})
+  };
+  const available = await prisma.quizQuestion.findMany({
+    where,
     orderBy: { createdAt: "asc" },
-    take: 60,
+    take: 200,
     select: {
       id: true,
       prompt: true,
@@ -20,7 +28,16 @@ export async function GET() {
       difficulty: true
     }
   });
-  return NextResponse.json({ questions });
+  // Shuffle on the server so repeated visits do not always expose the same sequence.
+  const questions = [...available]
+    .map(value => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .slice(0, count)
+    .map(({ value }) => value);
+  return NextResponse.json({
+    questions,
+    meta: { requestedCount: count, availableCount: available.length, returnedCount: questions.length, category: category || null }
+  });
 }
 
 export async function POST(request: Request) {
@@ -39,13 +56,22 @@ export async function POST(request: Request) {
 
   const questions = await prisma.quizQuestion.findMany({
     where: { id: { in: uniqueIds }, status: "published" },
-    select: { id: true, correctIndex: true, explanation: true, prompt: true }
+    select: { id: true, correctIndex: true, explanation: true, prompt: true, choices: true }
   });
   if (questions.length !== uniqueIds.length) {
     return NextResponse.json({ error: "تعذر التحقق من بعض الأسئلة." }, { status: 400 });
   }
 
-  const graded = gradeQuiz(parsed.data.answers, questions);
+  let graded;
+  try {
+    graded = gradeQuiz(parsed.data.answers, questions.map(question => ({
+      ...question,
+      choices: Array.isArray(question.choices) ? question.choices.filter((choice): choice is string => typeof choice === "string") : []
+    })));
+  } catch {
+    return NextResponse.json({ error: "توجد إجابة خارج خيارات السؤال أو بيانات غير صالحة." }, { status: 400 });
+  }
+
   const attempt = await prisma.quizAttempt.create({
     data: {
       userId: session?.user.id,
