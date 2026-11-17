@@ -17,6 +17,35 @@ type Device = {
   explanation: string;
 };
 
+const officialReferences: Record<string,string> = {
+  "stop":"SHC 602 §3.2.1 — R1-1 — ص 32",
+  "yield":"SHC 602 §3.2.3 — R2-1 — ص 34",
+  "speed":"SHC 602 §3.2.4 — R3-Series — ص 35",
+  "no-entry":"SHC 602 §3.2.19 — R16-1 — ص 50",
+  "crosswalk":"SHC 602 §4.4.1 — L12-Series — ص 226",
+  "stop-line":"SHC 602 §4.4.3 — L16-1 — ص 235",
+  "no-overtake":"SHC 602 §3.2.14 — R11-1 — ص 47",
+  "no-turn":"SHC 602 §3.2.9 — R7-Series — ص 40",
+  "one-way":"SHC 602 §3.2.37 — R18-Series — ص 59",
+  "roundabout":"SHC 602 §3.2.38 — R19-1 — ص 60",
+  "no-parking":"SHC 602 §3.2.41 — R21-Series — ص 61",
+  "height":"SHC 602 §3.2.50 — R27-1 — ص 69",
+  "narrow":"SHC 602 §3.3.7 — W6-Series — ص 95",
+  "slippery":"SHC 602 §3.3.24 — W24-1 — ص 104",
+  "hump":"SHC 602 §3.3.34 — W34-1 — ص 108",
+  "children":"SHC 602 §3.3.47 — W47-1 — ص 116",
+  "camel":"SHC 602 §3.3.48 — W48-1 — ص 117",
+  "falling-rocks":"SHC 602 §3.3.28 — W28-1 — ص 105",
+  "wadi":"SHC 602 §3.3.32 — W32-1 — ص 107",
+  "services":"SHC 602 §3.5.7 — G11-Series — ص 152",
+  "hatch":"SHC 602 §4.2.7 — L6-1-Series — ص 218",
+  "edge-line":"SHC 602 §4.2.5 — L5-1-Series — ص 213",
+  "yield-line":"SHC 602 §4.4.4 — L17-1 — ص 235",
+  "arrows":"SHC 602 §4.4.2 — L13/L14/L15-Series — ص 228",
+  "raised-markers":"SHC 602 §4.2.6 — L3-xR — ص 214",
+  "curb":"SHC 602 §4.2.10 — L9-1-Series — ص 223",
+};
+ 
 const devices: Device[] = [
   { id:"stop",group:"لوحات",title:"قف",meaning:"تطلب من السائق التوقف التام عند موضع الوقوف المحدد، ثم التحقق قبل المتابعة.",action:"توقف تماماً، راقب الطريق والمشاة، ولا تتحرك إلا عندما يصبح العبور آمناً.",context:"عند تقاطع أو مدخل طريق توجد عنده أولوية للآخرين.",shape:"stop",question:"ماذا تفعل عند رؤية لوحة قف؟",choices:["أخفف السرعة فقط وأتابع","أتوقف تماماً ثم أتحقق قبل المتابعة","أستخدم المنبه وأعبر"],answer:1,explanation:"المطلوب توقف تام، وليس مجرد تخفيف السرعة."},
   { id:"yield",group:"لوحات",title:"أعط الأفضلية",meaning:"تنبهك إلى ضرورة إفساح الطريق للمركبات أو مستخدمي الطريق أصحاب الأولوية بحسب الموقف.",action:"خفف السرعة واستعد للتوقف، وأفسح الطريق عند وجود حركة لها أولوية.",context:"عند مداخل الطرق والتقاطعات ومناطق اندماج الحركة.",shape:"yield",question:"متى تتوقف عند لوحة أعط الأفضلية؟",choices:["عندما يتطلب إفساح الطريق ذلك","في كل الأحوال لمدة عشر ثوانٍ","لا أتوقف مهما كانت الحركة"],answer:0,explanation:"تخفف السرعة وتفسح الطريق، وتتوقف إذا كان ذلك ضرورياً لإعطاء الأولوية بأمان."},
@@ -112,12 +141,12 @@ export default function SignsClient() {
     <section className="signs-intro"><span className="section-kicker">تدريب بصري للسائق</span><h1>اقرأ الطريق قبل أن تقوده</h1><p>تعرّف على اللوحات، ثم انتقل إلى العلامات المرسومة على سطح الطريق. تعلّم معناها وما يجب عليك فعله، وبعدها اختبر فهمك. الرقم الظاهر في لوحة السرعة رسم توضيحي فقط وليس تحديداً لسرعة طريق بعينه.</p></section>
     <div className="signs-toolbar"><div className="signs-tabs"><button className={tab==="تعلم"?"active":""} onClick={()=>{setTab("تعلم");setIndex(0);setSubmitted(false);}}>دليل العلامات</button><button className={tab==="اختبر"?"active":""} onClick={()=>{setTab("اختبر");setIndex(0);setSubmitted(false);}}>اختبار نظري</button></div><div className="signs-filters">{(["الكل","لوحات","علامات أرضية","أجهزة الطريق"] as const).map(v=><button key={v} className={group===v?"active":""} onClick={()=>changeGroup(v)}>{v}</button>)}</div></div>
     <div className="signs-count"><span>{group==="الكل"?"اللوحات والعلامات":group}</span><span>{visible.length} عناصر تدريبية في هذه الدفعة</span></div>
-    {tab==="تعلم" ? <div className="device-grid">{visible.map(device=><article className="device-card" key={device.id}><div className="device-card-top"><span>{device.group}</span><span>مثال تعليمي</span></div><DeviceVisual device={device}/><h2>{device.title}</h2><p>{device.meaning}</p><div className="driver-action"><strong>تصرف السائق</strong><p>{device.action}</p></div><small>موقف على الطريق: {device.context}</small><small>مرجع المراجعة: {device.group==="لوحات"?"SHC 602 — الفصل 3، وملاحق كتالوج اللوحات A–C":device.group==="علامات أرضية"?"SHC 602 — الفصل 4: العلامات الأرضية":"SHC 602 — الفصلان 5 و7: الإشارات وأجهزة مناطق العمل"}</small><button className="device-test-link" onClick={()=>{setTab("اختبر");setIndex(visible.findIndex(d=>d.id===device.id));}}>اختبر نفسك في هذه العلامة ←</button></article>)}</div> :
+    {tab==="تعلم" ? <div className="device-grid">{visible.map(device=><article className="device-card" key={device.id}><div className="device-card-top"><span>{device.group}</span><span>مثال تعليمي</span></div><DeviceVisual device={device}/><h2>{device.title}</h2><p>{device.meaning}</p><div className="driver-action"><strong>تصرف السائق</strong><p>{device.action}</p></div><small>موقف على الطريق: {device.context}</small><small>{officialReferences[device.id] ? `مرجع سعودي مطابق مبدئياً: ${officialReferences[device.id]}` : `مرجع المراجعة: ${device.group==="لوحات"?"SHC 602 — الفصل 3، وملاحق كتالوج اللوحات A–C":device.group==="علامات أرضية"?"SHC 602 — الفصل 4: العلامات الأرضية":"SHC 602 — الفصلان 5 و7: الإشارات وأجهزة مناطق العمل"}`}</small><button className="device-test-link" onClick={()=>{setTab("اختبر");setIndex(visible.findIndex(d=>d.id===device.id));}}>اختبر نفسك في هذه العلامة ←</button></article>)}</div> :
       <section className="device-exam">
         {!submitted ? <><div className="device-exam-head"><span>السؤال {index+1} من {visible.length}</span><span>{Object.keys(answers).length} إجابات</span></div><div className="exam-progress"><i style={{width:`${(Object.keys(answers).length/visible.length)*100}%`}}/></div><article className="device-question"><DeviceVisual device={current}/><span className="section-kicker">{current.group}</span><h2>{current.question}</h2><div className="device-options">{current.choices.map((choice,i)=><button key={i} className={answers[current.id]===i?"selected":""} onClick={()=>setAnswers(a=>({...a,[current.id]:i}))}><b>{["أ","ب","ج"][i]}</b>{choice}</button>)}</div><div className="exam-nav"><button disabled={index===0} onClick={()=>setIndex(i=>i-1)}>السابق</button><button disabled={answers[current.id]===undefined} onClick={()=>index===visible.length-1?setSubmitted(true):setIndex(i=>i+1)}>{index===visible.length-1?"إنهاء الاختبار":"التالي"}</button></div></article></> :
         <div className="device-results"><span className="section-kicker">نتيجة الدفعة التدريبية</span><strong className="device-score">{score} / {visible.length}</strong><p>إجابات صحيحة</p>{visible.map(d=><article key={d.id} className="device-review"><b>{answers[d.id]===d.answer?"✓":"×"} {d.title}</b><p>{d.explanation}</p></article>)}<button className="button button-primary" onClick={()=>{setAnswers({});setIndex(0);setSubmitted(false);}}>إعادة الاختبار</button></div>}
       </section>}
-    <aside className="signs-note"><strong>ملاحظة عن دقة المحتوى</strong><p>هذه عناصر تدريبية أولية برسوم توضيحية أصلية، وليست الكتالوج السعودي الكامل ولا صوراً رسمية معتمدة. أرقام اللوحات وأكوادها لم تُنسب بعد إلى العناصر؛ يلزم استكمال المطابقة بنداً بنداً مع ملاحق SHC 602 قبل اعتماد المحتوى النهائي.</p><p><a href="https://istitlaa.ncc.gov.sa/ar/transportation/mot/saudihighwaycode/Documents/SHC%20602%20final.pdf" target="_blank" rel="noreferrer">مرجع السعودية: كود الطرق SHC 602 (PDF)</a></p><p>المرجع الأمريكي للمقارنة التعليمية فقط: <a href="https://mutcd.fhwa.dot.gov/kno_11th_Editionr1.htm" target="_blank" rel="noreferrer">FHWA MUTCD — الطبعة 11، Revision 1 (ديسمبر 2025)</a>. لا تُنقل القواعد الأمريكية إلى اختبار السعودية.</p></aside>
+    <aside className="signs-note"><strong>ملاحظة عن دقة المحتوى</strong><p>هذه عناصر تدريبية أولية برسوم توضيحية أصلية، وليست الكتالوج السعودي الكامل ولا صوراً رسمية معتمدة. أضيفت مراجع الفصول والأكواد والصفحات للعناصر التي أمكن مطابقتها من فهرس SHC 602 الرسمي. بقية العناصر ما زالت تحتاج مطابقة فردية مع شكل اللوحة أو جدول الكتالوج قبل اعتمادها. هذه الدفعة ليست الكتالوج السعودي الكامل.</p><p><a href="https://istitlaa.ncc.gov.sa/ar/transportation/mot/saudihighwaycode/Documents/SHC%20602%20final.pdf" target="_blank" rel="noreferrer">مرجع السعودية: كود الطرق SHC 602 (PDF)</a></p><p>المرجع الأمريكي للمقارنة التعليمية فقط: <a href="https://mutcd.fhwa.dot.gov/kno_11th_Editionr1.htm" target="_blank" rel="noreferrer">FHWA MUTCD — الطبعة 11، Revision 1 (ديسمبر 2025)</a>. لا تُنقل القواعد الأمريكية إلى اختبار السعودية.</p></aside>
     <p className="quiz-disclaimer">اختبار تدريبي مستقل، وليس اختبار المرور الحكومي الفعلي ولا يضمن اجتيازه.</p>
   </main>;
 }
