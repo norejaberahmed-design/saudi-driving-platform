@@ -11,7 +11,8 @@
 ## Core domains
 - Identity: user, session, account, verification.
 - Learning: lesson, source, lesson-source, lesson progress.
-- Assessment: published question bank, attempts, and individual answers.
+- Assessment: published question bank, attempts, individual answers, and saved wrong-answer review.
+- Learner analytics: category-level weak-area summaries across general and traffic-device exams.
 - Traffic-device learning: PostgreSQL-backed starter catalogue, server-side answer keys, device attempts, and individual responses.
 - License guidance: public informational pages linking to official channels.
 
