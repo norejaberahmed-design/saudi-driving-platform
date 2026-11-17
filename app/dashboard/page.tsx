@@ -75,8 +75,9 @@ export default async function DashboardPage() {
     <section className="dashboard-actions">
       <Link href="/quiz" className="dashboard-action"><span>01</span><div><h2>اختبار تجريبي متنوع</h2><p>اختر المجال وعدد الأسئلة وراجع الإجابات بعد التصحيح.</p></div><b>←</b></Link>
       <Link href="/signs" className="dashboard-action"><span>02</span><div><h2>موسوعة الإشارات والعلامات</h2><p>تعرف على أجهزة الطريق وتدرّب على تمييزها.</p></div><b>←</b></Link>
-      <Link href="/learn" className="dashboard-action"><span>03</span><div><h2>الأكاديمية والدروس</h2><p>تابع الدروس المنظمة واحفظ تقدمك في حسابك.</p></div><b>←</b></Link>
-      <Link href="/license-guide" className="dashboard-action"><span>04</span><div><h2>دليل إجراءات الرخصة</h2><p>تعرّف على المسارات العامة ومصادر التحقق الرسمية.</p></div><b>←</b></Link>
+      <Link href="/mistakes" className="dashboard-action"><span>03</span><div><h2>مراجعة الأخطاء</h2><p>راجع إجاباتك غير الصحيحة وتعلم سبب الإجابة الصحيحة.</p></div><b>←</b></Link>
+      <Link href="/learn" className="dashboard-action"><span>04</span><div><h2>الأكاديمية والدروس</h2><p>تابع الدروس المنظمة واحفظ تقدمك في حسابك.</p></div><b>←</b></Link>
+      <Link href="/license-guide" className="dashboard-action"><span>05</span><div><h2>دليل إجراءات الرخصة</h2><p>تعرّف على المسارات العامة ومصادر التحقق الرسمية.</p></div><b>←</b></Link>
     </section>
     {weakAreas.length > 0 && <section className="attempts-panel"><h2>المجالات التي تحتاج مراجعة</h2><p className="dashboard-footnote">مبنية على آخر 600 إجابة مسجلة في حسابك، وليست تقييماً رسمياً لمهارة القيادة.</p>{weakAreas.map(item=><div className="weak-area" key={item.name}><div><strong>{item.name}</strong><span>{item.accuracy}% · {item.total} إجابات</span></div><div className="weak-track"><i style={{width:`${item.accuracy}%`}} /></div></div>)}</section>}
     <section className="attempts-panel"><h2>آخر محاولاتك</h2>{recentAttempts.length ? recentAttempts.map(item=><div className="attempt-row" key={item.id}><span>{item.kind} · {item.correctCount} من {item.totalCount} صحيحة</span><strong>{item.score}%</strong><time>{new Intl.DateTimeFormat("ar-SA",{dateStyle:"medium"}).format(item.completedAt)}</time></div>) : <p className="empty-state">لم تبدأ اختباراً بعد. ابدأ باختبار قصير لتكوين سجل تقدمك.</p>}</section>
