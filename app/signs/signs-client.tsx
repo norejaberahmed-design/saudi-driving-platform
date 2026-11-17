@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 
 type Device = {
   id: string;
-  group: "لوحات" | "علامات أرضية";
+  group: "لوحات" | "علامات أرضية" | "أجهزة الطريق";
   title: string;
   meaning: string;
   action: string;
@@ -49,6 +49,12 @@ const devices: Device[] = [
   {id:"arrows",group:"علامات أرضية",title:"الأسهم والكتابات على سطح الطريق",meaning:"توضح اتجاه الحركة أو المسار الذي يجب الاستعداد لاختياره.",action:"اتبع السهم في مسارك واستعد مبكراً للمسار الصحيح.",context:"قبل التقاطعات ومناطق اختيار المسار.",shape:"text",question:"إذا أشار سهم مسارك إلى اليمين فقط، ماذا تفعل؟",choices:["أتابع مستقيماً","ألتزم بالانعطاف يميناً","أغير المسار فوق التقاطع"],answer:1,explanation:"الأسهم توجه استخدام المسار."},
   {id:"raised-markers",group:"علامات أرضية",title:"العاكسات الأرضية",meaning:"عواكس مثبتة على سطح الطريق تساعد على إظهار حدود المسارات خصوصاً ليلاً.",action:"استخدمها كمرشد بصري ولا تعتبرها بديلاً عن الانتباه للخطوط واللوحات.",context:"الطرق السريعة والمنحنيات.",shape:"text",question:"ما وظيفة العواكس الأرضية؟",choices:["إنارة الطريق بالكامل","توضيح المسارات بصرياً","تحديد سرعة المركبة"],answer:1,explanation:"تساعد على رؤية تخطيط الطريق ليلاً."},
   {id:"curb",group:"علامات أرضية",title:"ألوان الأرصفة والبردورات",meaning:"تستخدم ألوان وتخطيطات الأرصفة لتحديد قيود الوقوف أو حدود مناطق معينة وفق التنظيم المحلي.",action:"اقرأ اللوحات والتنظيم المصاحب ولا تفترض أن اللون وحده يكفي.",context:"الشوارع ومناطق الوقوف والتحميل.",shape:"text",question:"هل يكفي لون الرصيف وحده لتخمين نظام الوقوف؟",choices:["نعم في كل المدن","لا، أقرأ التنظيم واللوحات","أتجاهل العلامات"],answer:1,explanation:"فسر العلامات ضمن نظام الطريق واللوحات المصاحبة."}
+,
+  {id:"delineator",group:"أجهزة الطريق",title:"الأعمدة العاكسة الجانبية",meaning:"أعمدة أو محددات عاكسة تساعد على توضيح حافة الطريق واتجاهه، خصوصاً في الظلام والمنحنيات.",action:"استرشد بها لتقدير مسار الطريق ولا تقترب منها أو تعتبرها حاجزاً يحمي من الاصطدام.",context:"حواف الطرق والمنحنيات ومناطق الرؤية المحدودة.",shape:"text",question:"ما وظيفة الأعمدة العاكسة على جانب الطريق؟",choices:["تحديد مسار الطريق وحافته","السماح بالوقوف","تحديد السرعة"],answer:0,explanation:"هي أجهزة إرشاد بصري لتحديد الطريق."},
+  {id:"cones",group:"أجهزة الطريق",title:"الأقماع المرورية",meaning:"أجهزة مؤقتة لتحديد المسارات أو عزل منطقة عمل أو توجيه المركبات حول عائق.",action:"خفف السرعة واتبع المسار الذي تحدده الأقماع ولا تمر بينها عشوائياً.",context:"أعمال الصيانة والحوادث والتحويلات.",shape:"text",question:"ماذا تفعل عند رؤية أقماع تحول مسارك؟",choices:["أتجاوزها من أي جهة","أتبع مسار التحويلة وأخفف السرعة","أزيلها"],answer:1,explanation:"الأقماع تنظم المرور مؤقتاً حول منطقة الخطر أو العمل."},
+  {id:"barrier",group:"أجهزة الطريق",title:"الحواجز المرورية",meaning:"حواجز مؤقتة أو ثابتة تفصل حركة المركبات عن منطقة عمل أو خطر أو اتجاه مقابل.",action:"لا تتجاوز الحاجز ولا تدخل المنطقة المغلقة واتبع المسار البديل.",context:"مناطق العمل والجسور والمنشآت.",shape:"text",question:"إذا أغلق حاجز مسارك، ماذا تفعل؟",choices:["أمر من فوقه","أتبع التحويلة المعلنة","أتحرك عكس السير"],answer:1,explanation:"الحاجز يعني أن المسار أو المنطقة غير متاحة."},
+  {id:"arrow-board",group:"أجهزة الطريق",title:"لوحة السهم المضيء",meaning:"لوحة ضوئية مؤقتة تشير إلى اتجاه الاندماج أو تغيير المسار قرب أعمال الطريق.",action:"استجب لاتجاه السهم مبكراً وادمج بسلاسة مع مراقبة المركبات الأخرى.",context:"أعمال الطرق وإغلاق المسارات.",shape:"text",question:"إلى ماذا توجهك لوحة سهم مضيء قرب أعمال الطريق؟",choices:["اتجاه تغيير المسار أو الاندماج","مكان الوقوف","السرعة القصوى"],answer:0,explanation:"السهم المضيء ينبه إلى المسار الذي يجب اتباعه."},
+  {id:"flagger",group:"أجهزة الطريق",title:"عامل تنظيم المرور أو الراية",meaning:"شخص مخول ينظم المرور مؤقتاً في منطقة عمل باستخدام إشارات اليد أو لوحة التوقف/السير.",action:"اتبع تعليماته وإشاراته، وتوقف عند إشارة التوقف وانتظر السماح بالمرور.",context:"الطرق ذات المسار الواحد المؤقت ومناطق الإنشاء.",shape:"text",question:"إذا رفع منظم المرور إشارة التوقف، ماذا تفعل؟",choices:["أمر ببطء","أتوقف وأنتظر إشارة السماح","أستخدم المنبه وأتجاوز"],answer:1,explanation:"إشارات منظم المرور جزء من التحكم المؤقت بالحركة."}
 
 ];
 
@@ -68,18 +74,18 @@ function DeviceVisual({device}:{device:Device}) {
 
 export default function SignsClient() {
   const [tab,setTab]=useState<"تعلم"|"اختبر">("تعلم");
-  const [group,setGroup]=useState<"الكل"|"لوحات"|"علامات أرضية">("الكل");
+  const [group,setGroup]=useState<"الكل"|"لوحات"|"علامات أرضية"|"أجهزة الطريق">("الكل");
   const [index,setIndex]=useState(0);
   const [answers,setAnswers]=useState<Record<string,number>>({});
   const [submitted,setSubmitted]=useState(false);
   const visible=useMemo(()=>devices.filter(d=>group==="الكل"||d.group===group),[group]);
   const score=visible.filter(d=>answers[d.id]===d.answer).length;
   const current=visible[index];
-  function changeGroup(value:"الكل"|"لوحات"|"علامات أرضية"){setGroup(value);setIndex(0);setSubmitted(false);setAnswers({});}
+  function changeGroup(value:"الكل"|"لوحات"|"علامات أرضية"|"أجهزة الطريق"){setGroup(value);setIndex(0);setSubmitted(false);setAnswers({});}
   return <main className="signs-shell">
     <header className="quiz-header"><Link className="brand" href="/"><span className="brand-mark">م</span><strong>مسار الرخصة</strong></Link><Link href="/quiz" className="text-link">الاختبار النظري العام ←</Link></header>
     <section className="signs-intro"><span className="section-kicker">تدريب بصري للسائق</span><h1>اقرأ الطريق قبل أن تقوده</h1><p>تعرّف على اللوحات، ثم انتقل إلى العلامات المرسومة على سطح الطريق. تعلّم معناها وما يجب عليك فعله، وبعدها اختبر فهمك. الرقم الظاهر في لوحة السرعة رسم توضيحي فقط وليس تحديداً لسرعة طريق بعينه.</p></section>
-    <div className="signs-toolbar"><div className="signs-tabs"><button className={tab==="تعلم"?"active":""} onClick={()=>{setTab("تعلم");setIndex(0);setSubmitted(false);}}>دليل العلامات</button><button className={tab==="اختبر"?"active":""} onClick={()=>{setTab("اختبر");setIndex(0);setSubmitted(false);}}>اختبار نظري</button></div><div className="signs-filters">{(["الكل","لوحات","علامات أرضية"] as const).map(v=><button key={v} className={group===v?"active":""} onClick={()=>changeGroup(v)}>{v}</button>)}</div></div>
+    <div className="signs-toolbar"><div className="signs-tabs"><button className={tab==="تعلم"?"active":""} onClick={()=>{setTab("تعلم");setIndex(0);setSubmitted(false);}}>دليل العلامات</button><button className={tab==="اختبر"?"active":""} onClick={()=>{setTab("اختبر");setIndex(0);setSubmitted(false);}}>اختبار نظري</button></div><div className="signs-filters">{(["الكل","لوحات","علامات أرضية","أجهزة الطريق"] as const).map(v=><button key={v} className={group===v?"active":""} onClick={()=>changeGroup(v)}>{v}</button>)}</div></div>
     <div className="signs-count"><span>{group==="الكل"?"اللوحات والعلامات":group}</span><span>{visible.length} عناصر تدريبية في هذه الدفعة</span></div>
     {tab==="تعلم" ? <div className="device-grid">{visible.map(device=><article className="device-card" key={device.id}><div className="device-card-top"><span>{device.group}</span><span>مثال تعليمي</span></div><DeviceVisual device={device}/><h2>{device.title}</h2><p>{device.meaning}</p><div className="driver-action"><strong>تصرف السائق</strong><p>{device.action}</p></div><small>موقف على الطريق: {device.context}</small><button className="device-test-link" onClick={()=>{setTab("اختبر");setIndex(visible.findIndex(d=>d.id===device.id));}}>اختبر نفسك في هذه العلامة ←</button></article>)}</div> :
       <section className="device-exam">
