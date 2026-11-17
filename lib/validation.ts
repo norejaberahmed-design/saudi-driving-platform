@@ -13,3 +13,11 @@ export const signUpSchema = z.object({
   email: z.string().trim().email().max(254),
   password: z.string().min(10).max(128)
 });
+
+export const trafficDeviceSubmissionSchema = z.object({
+  answers: z.array(z.object({
+    deviceId: z.string().min(1).max(80),
+    selectedIndex: z.number().int().min(0).max(5)
+  })).min(1).max(100),
+  visitorKey: z.string().uuid().optional()
+}).strict();
