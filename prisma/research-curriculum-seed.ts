@@ -120,6 +120,15 @@ const sources = [
     notes: "مصدر حكومي بحريني؛ يتضمن تعديلات على قانون المرور، ومنها قانون رقم 30 لسنة 2025. راجع النصوص المحدثة قبل استخدام أي مادة."
   },
   {
+    id: "source-us-mutcd-11-r1",
+    title: "Manual on Uniform Traffic Control Devices (MUTCD), 11th Edition with Revision 1",
+    publisher: "Federal Highway Administration (FHWA), U.S. Department of Transportation",
+    url: "https://mutcd.fhwa.dot.gov/kno_11th_Editionr1.htm",
+    isOfficial: true,
+    reviewedAt,
+    notes: "مرجع أمريكي رسمي للمقارنة في تصنيف اللوحات والعلامات الأرضية والإشارات الضوئية وأجهزة التحكم المروري. الإصدار الحالي بحسب FHWA هو الطبعة 11 مع Revision 1 (ديسمبر 2025، نافذ 5 مارس 2026). لا تستخدم أحكامه أو أكواده على أنها متطلبات سعودية."
+  },
+  {
     id: "source-singapore-traffic-police",
     title: "Basic and Final Driving Theory Handbooks",
     publisher: "Singapore Police Force – Traffic Police",
