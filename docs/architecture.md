@@ -49,3 +49,7 @@ Copy `.env.example` to `.env`, set a PostgreSQL URL and a random Better Auth sec
 
 ## Database rollout
 The traffic-device tables are additive. Apply migrations with `npm run db:deploy`, then run the idempotent seed command with `npm run db:seed`. Do not reset or drop existing tables. The starter catalogue is not an exhaustive official Saudi inventory.
+
+
+## Existing database baseline
+The connected Neon database already contains the exact initial Prisma schema but does not have a `_prisma_migrations` history table. The `scripts/baseline-existing-db.mjs` script checks the exact set of 11 expected base tables and every expected column before it records `20261116000100_initial` as applied. It makes no changes to application rows. Empty databases are left for Prisma to initialize normally; partial or unexpected schemas fail closed. Then `npm run db:deploy` applies the additive traffic-device migration and `npm run db:seed` performs idempotent content seeding.
