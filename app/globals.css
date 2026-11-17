@@ -67,3 +67,11 @@ a{color:inherit;text-decoration:none}
 
 .sign-info-board{min-width:145px;max-width:82%;min-height:78px;padding:13px 17px;border:5px solid #fff;border-radius:4px;background:#245b49;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:0 3px 10px #0002;text-align:center}.sign-info-board small{font-size:9px;opacity:.8;letter-spacing:1px}.sign-info-board b{font-size:16px;line-height:1.6}
 .signs-filters{max-width:100%}
+
+
+/* Mock-exam configuration */
+.quiz-controls{display:flex;align-items:end;gap:14px;flex-wrap:wrap;padding:16px;background:#fff;border:1px solid var(--line);border-radius:12px;margin:18px 0}
+.quiz-controls label{display:grid;gap:7px;font-size:11px;color:var(--muted);min-width:150px}
+.quiz-controls select{border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px 12px;color:#26372e;font:inherit;font-size:12px;min-height:42px}
+.quiz-controls>span{font-size:11px;color:var(--muted);padding:0 4px 10px}
+@media(max-width:520px){.quiz-controls{display:grid;grid-template-columns:1fr 1fr;gap:9px}.quiz-controls label{min-width:0}.quiz-controls>span{grid-column:1/-1;padding:4px 0 0}}
