@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: saudi-driving-platform-preview
+    runtime: node
+    region: frankfurt
+    plan: free
+    branch: feature/complete-saudi-traffic-sign-exam
+    autoDeployTrigger: checksPass
+    buildCommand: npm install --no-audit --no-fund && npx prisma generate && npm run db:setup && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_URL
+        sync: false
+      - key: BETTER_AUTH_SECRET
+        generateValue: true
+      - key: BETTER_AUTH_URL
+        value: https://saudi-driving-platform-preview.onrender.com
