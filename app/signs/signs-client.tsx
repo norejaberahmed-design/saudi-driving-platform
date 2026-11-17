@@ -49,12 +49,12 @@ export default function SignsClient() {
   const [answers,setAnswers]=useState<Record<string,number>>({});
   const [submitted,setSubmitted]=useState(false);
   const visible=useMemo(()=>devices.filter(d=>group==="الكل"||d.group===group),[group]);
-  const score=devices.filter(d=>answers[d.id]===d.answer).length;
+  const score=visible.filter(d=>answers[d.id]===d.answer).length;
   const current=visible[index];
   function changeGroup(value:"الكل"|"لوحات"|"علامات أرضية"){setGroup(value);setIndex(0);setSubmitted(false);setAnswers({});}
   return <main className="signs-shell">
     <header className="quiz-header"><Link className="brand" href="/"><span className="brand-mark">م</span><strong>مسار الرخصة</strong></Link><Link href="/quiz" className="text-link">الاختبار النظري العام ←</Link></header>
-    <section className="signs-intro"><span className="section-kicker">تدريب بصري للسائق</span><h1>اقرأ الطريق قبل أن تقوده</h1><p>تعرّف على اللوحات، ثم انتقل إلى العلامات المرسومة على سطح الطريق. تعلّم معناها وما يجب عليك فعله، وبعدها اختبر فهمك.</p></section>
+    <section className="signs-intro"><span className="section-kicker">تدريب بصري للسائق</span><h1>اقرأ الطريق قبل أن تقوده</h1><p>تعرّف على اللوحات، ثم انتقل إلى العلامات المرسومة على سطح الطريق. تعلّم معناها وما يجب عليك فعله، وبعدها اختبر فهمك. الرقم الظاهر في لوحة السرعة رسم توضيحي فقط وليس تحديداً لسرعة طريق بعينه.</p></section>
     <div className="signs-toolbar"><div className="signs-tabs"><button className={tab==="تعلم"?"active":""} onClick={()=>{setTab("تعلم");setIndex(0);setSubmitted(false);}}>دليل العلامات</button><button className={tab==="اختبر"?"active":""} onClick={()=>{setTab("اختبر");setIndex(0);setSubmitted(false);}}>اختبار نظري</button></div><div className="signs-filters">{(["الكل","لوحات","علامات أرضية"] as const).map(v=><button key={v} className={group===v?"active":""} onClick={()=>changeGroup(v)}>{v}</button>)}</div></div>
     <div className="signs-count"><span>{group==="الكل"?"اللوحات والعلامات":group}</span><span>{visible.length} عناصر تدريبية في هذه الدفعة</span></div>
     {tab==="تعلم" ? <div className="device-grid">{visible.map(device=><article className="device-card" key={device.id}><div className="device-card-top"><span>{device.group}</span><span>مثال تعليمي</span></div><DeviceVisual device={device}/><h2>{device.title}</h2><p>{device.meaning}</p><div className="driver-action"><strong>تصرف السائق</strong><p>{device.action}</p></div><small>موقف على الطريق: {device.context}</small><button className="device-test-link" onClick={()=>{setTab("اختبر");setIndex(visible.findIndex(d=>d.id===device.id));}}>اختبر نفسك في هذه العلامة ←</button></article>)}</div> :
