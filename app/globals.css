@@ -64,3 +64,6 @@ a{color:inherit;text-decoration:none}
 
 .quiz-header-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 @media(max-width:520px){.quiz-header-links{gap:9px}.quiz-header-links .text-link{font-size:10px}}
+
+.sign-info-board{min-width:145px;max-width:82%;min-height:78px;padding:13px 17px;border:5px solid #fff;border-radius:4px;background:#245b49;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:0 3px 10px #0002;text-align:center}.sign-info-board small{font-size:9px;opacity:.8;letter-spacing:1px}.sign-info-board b{font-size:16px;line-height:1.6}
+.signs-filters{max-width:100%}
