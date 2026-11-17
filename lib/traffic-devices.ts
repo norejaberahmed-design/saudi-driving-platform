@@ -93,31 +93,3 @@ export const devices: Device[] = [
   {id:"temporary-signal",group:"أجهزة الطريق",title:"إشارة ضوئية مؤقتة في منطقة عمل",meaning:"إشارة مؤقتة تنظم مرور المركبات عند تضييق الطريق أو التناوب على مسار واحد بسبب الأعمال.",action:"اتبع ألوان الإشارة المؤقتة واللوحات والحواجز، ولا تدخل المقطع قبل السماح.",context:"أعمال الصيانة والتحويلات ومقاطع الطريق ذات المسار الواحد.",shape:"text",question:"عند إشارة مؤقتة حمراء في منطقة عمل، ماذا تفعل؟",choices:["أدخل لأن الإشارة مؤقتة","أتوقف وأنتظر السماح","أتجاوز الحواجز"],answer:1,explanation:"الإشارات المؤقتة تنظم الحركة داخل منطقة العمل ويجب الالتزام بها."}
 
 ];
-
-function DeviceVisual({device}:{device:Device}) {
-  if (["red-signal","yellow-signal","green-signal","flashing-red","flashing-yellow","arrow-signal","temporary-signal","audible-pedestrian"].includes(device.id)) {
-    return <div className="sign-visual" aria-label={device.title}>
-      <svg viewBox="0 0 240 150" role="img" aria-hidden="true" style={{width:"100%",maxWidth:260,height:150}}>
-        <rect x="82" y="8" width="76" height="132" rx="14" fill="#252a30" stroke="#111820" strokeWidth="4"/>
-        <circle cx="120" cy="34" r="17" fill={device.id==="red-signal"||device.id==="flashing-red"||device.id==="temporary-signal"?"#d52d32":"#63383a"} stroke="#111" strokeWidth="2"/>
-        <circle cx="120" cy="74" r="17" fill={device.id==="yellow-signal"||device.id==="flashing-yellow"?"#f2bd36":"#66552e"} stroke="#111" strokeWidth="2"/>
-        <circle cx="120" cy="114" r="17" fill={device.id==="green-signal"?"#269b61":"#315344"} stroke="#111" strokeWidth="2"/>
-        {device.id==="arrow-signal" && <path d="M94 74h43m-14-14 14 14-14 14" fill="none" stroke="#fff" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>}
-        {device.id==="audible-pedestrian" && <g fill="none" stroke="#263746" strokeWidth="5" strokeLinecap="round"><circle cx="190" cy="47" r="8" fill="#263746"/><path d="M190 58v35m0-23-17 16m17-16 15 13m-15 10-14 24m14-24 15 24M211 48q12 12 0 24m8-32q20 20 0 40"/></g>}
-        {device.id==="temporary-signal" && <g><path d="M42 138 60 83l18 55Z" fill="#ef8c27" stroke="#8a4b16" strokeWidth="3"/><path d="M46 125h28" stroke="#fff" strokeWidth="6"/></g>}
-      </svg>
-    </div>;
-  }
-  if (device.shape === "text") return <div className="sign-visual"><div className="sign-info-board"><small>{device.id.toUpperCase()}</small><b>{device.title}</b></div></div>;
-  if (device.shape === "line-solid") return <div className="road-visual"><div className="road-asphalt"><i className="mark-solid"/></div></div>;
-  if (device.shape === "line-dash") return <div className="road-visual"><div className="road-asphalt"><i className="mark-dashed"/></div></div>;
-  if (device.shape === "crosswalk") return <div className="road-visual"><div className="road-asphalt"><i className="mark-crosswalk"/></div></div>;
-  if (device.shape === "stopline") return <div className="road-visual"><div className="road-asphalt"><i className="mark-stopline"/></div></div>;
-  return <div className="sign-visual">
-    {device.shape==="stop" && <div className="sign-octagon">قف</div>}
-    {device.shape==="yield" && <div className="sign-yield"><span>أعط الأفضلية</span></div>}
-    {device.shape==="circle" && <div className={device.id==="speed"?"sign-speed":"sign-no-entry"}>{device.id==="speed"?"٨٠":<i/>}</div>}
-    {device.shape==="warning" && <div className="sign-warning"><span>↶</span></div>}
-  </div>;
-}
-
