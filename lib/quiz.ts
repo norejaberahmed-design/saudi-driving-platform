@@ -19,6 +19,7 @@ export function gradeQuiz(answers: QuizInputAnswer[], questions: QuizKey[]) {
       questionId: answer.questionId,
       selectedIndex: answer.selectedIndex,
       correctIndex: question.correctIndex,
+      correctAnswer: question.choices?.[question.correctIndex] ?? null,
       isCorrect: answer.selectedIndex === question.correctIndex,
       explanation: question.explanation,
       prompt: question.prompt
