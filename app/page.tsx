@@ -3,7 +3,7 @@ import { learningCategories } from "@/lib/platform";
 
 const highlights = [
   { number: "01", title: "أكاديمية الطريق والسلامة", description: "تعلم الإشارات والقيادة الوقائية وسلامة المشاة والتعامل مع المخاطر والطوارئ.", href: "/learn", action: "ابدأ التعلم" },
-  { number: "02", title: "اختبارات ومواقف مرورية", description: "تدرب على أسئلة أصلية، وافهم لماذا يكون القرار آمناً أو خطراً.", href: "/quiz", action: "اختبر فهمك" },
+  { number: "02", title: "اختبار الإشارات والعلامات", description: "تعرّف بصرياً على اللوحات وعلامات سطح الطريق، ثم اختبر فهمك.", href: "/signs", action: "ابدأ الاختبار النظري" },
   { number: "03", title: "دليل إجراءات الرخصة", description: "راجع المسار الإرشادي ومصادر التحقق الرسمية في المملكة.", href: "/license-guide", action: "اعرف الإجراءات" }
 ];
 
@@ -11,7 +11,7 @@ export default function HomePage() {
   return <main className="site-shell">
     <header className="topbar">
       <Link className="brand" href="/" aria-label="مسار الرخصة - الرئيسية"><span className="brand-mark">م</span><span><strong>مسار الرخصة</strong><small>تعلّم بثقة، وقد بأمان</small></span></Link>
-      <nav className="main-nav" aria-label="التنقل الرئيسي"><Link href="/learn">الأكاديمية</Link><Link href="/quiz">الاختبارات</Link><Link href="/license-guide">إجراءات الرخصة</Link></nav>
+      <nav className="main-nav" aria-label="التنقل الرئيسي"><Link href="/learn">الأكاديمية</Link><Link href="/signs">اختبار الإشارات</Link><Link href="/quiz">الاختبارات العامة</Link><Link href="/license-guide">إجراءات الرخصة</Link></nav>
       <Link className="top-action" href="/dashboard">مساحة المتعلم <span>←</span></Link>
     </header>
     <section className="hero">
