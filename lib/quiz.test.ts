@@ -24,6 +24,28 @@ describe("gradeQuiz", () => {
       .toThrow("INVALID_ANSWERS");
   });
 
+  it("rejects an answer index outside the available options", () => {
+    expect(() => gradeQuiz(
+      [{ questionId: "q1", selectedIndex: 9 }],
+      [{ ...questions[0], choices: ["أ", "ب", "ج"] }]
+    )).toThrow("INVALID_SELECTION");
+  });
+
+  it("rejects duplicate answers for one question", () => {
+    expect(() => gradeQuiz([
+      { questionId: "q1", selectedIndex: 1 },
+      { questionId: "q1", selectedIndex: 0 }
+    ], questions)).toThrow("DUPLICATE_ANSWERS");
+  });
+
+  it("returns the correct option only in the graded result", () => {
+    const result = gradeQuiz(
+      [{ questionId: "q1", selectedIndex: 0 }],
+      [{ ...questions[0], choices: ["خطأ", "صحيح", "خيار"] }]
+    );
+    expect(result.results[0].correctAnswer).toBe("صحيح");
+  });
+
   it("rounds percentage scores consistently", () => {
     const result = gradeQuiz([
       { questionId: "q1", selectedIndex: 1 },
