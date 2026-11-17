@@ -57,7 +57,7 @@ export default function QuizClient() {
   }
 
   return <main className="quiz-shell">
-    <header className="quiz-header"><Link className="brand" href="/"><span className="brand-mark">م</span><strong>مسار الرخصة</strong></Link><Link href="/dashboard" className="text-link">مساحة المتعلم ←</Link></header>
+    <header className="quiz-header"><Link className="brand" href="/"><span className="brand-mark">م</span><strong>مسار الرخصة</strong></Link><div className="quiz-header-links"><Link href="/signs" className="text-link">اختبار الإشارات والعلامات ←</Link><Link href="/dashboard" className="text-link">مساحة المتعلم ←</Link></div></header>
     <section className="quiz-intro"><span className="section-kicker">تدريب قصير</span><h1>اختبر فهمك</h1><p>أسئلة تدريبية أصلية مع تفسير لكل إجابة. ليست أسئلة الاختبار الحكومي الفعلية.</p></section>
     {loading && <p className="empty-state">جارٍ تحميل الاختبار...</p>}
     {!loading && !questions.length && <div className="notice-panel">{error || "لا توجد أسئلة منشورة حالياً."}</div>}
