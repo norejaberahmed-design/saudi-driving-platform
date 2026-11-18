@@ -12,11 +12,12 @@ describe("digital driving school curriculum", () => {
   });
 
   it("keeps a distinct vehicle-specific curriculum in every track", () => {
+    const specificCurricula = licenseTracks.map(track => track.modules.slice(-2).map(module => module.id).join(","));
     for (const track of licenseTracks) {
       expect(track.modules.length).toBeGreaterThan(6);
       expect(new Set(track.modules.map(module => module.id)).size).toBe(track.modules.length);
-      expect(track.modules.some(module => module.id !== "road-signs" && module.id.includes(track.id))).toBe(true);
     }
+    expect(new Set(specificCurricula).size).toBe(licenseTracks.length);
   });
 
   it("includes the ten requested learner journey stages", () => {
