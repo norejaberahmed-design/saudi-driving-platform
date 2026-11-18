@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { licenseTracks, schoolStages } from "@/lib/driving-school";
+import { licenseTracks, schoolStages } from "./driving-school";
 
 describe("digital driving school curriculum", () => {
   it("provides the four Saudi driving licence tracks", () => {
