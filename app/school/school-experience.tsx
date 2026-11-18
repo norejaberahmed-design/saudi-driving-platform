@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { licenseTracks, schoolStages, type LicenseTrackId, type SchoolLesson } from "@/lib/driving-school";
 
 type Props = { learnerName: string; accountLessonsCompleted: number; latestQuizScore: number | null };
@@ -78,7 +78,7 @@ export default function SchoolExperience({ learnerName, accountLessonsCompleted,
 
       <section className="school-welcome">
         <div><span className="school-kicker">أكاديمية تعليم القيادة</span><h1>مرحباً {learnerName || "بالمتعلم"}، لنبدأ رحلتك</h1><p>مسار تعليمي متدرج يجمع المعرفة المرورية والتدريب البصري والمواقف التفاعلية.</p></div>
-        <div className="school-progress-ring" style={{ "--progress": digitalPercent + "%" } as React.CSSProperties}><strong>{digitalPercent}%</strong><span>منهج رقمي</span></div>
+        <div className="school-progress-ring" style={{ "--progress": digitalPercent + "%" } as CSSProperties}><strong>{digitalPercent}%</strong><span>منهج رقمي</span></div>
       </section>
 
       <section className="school-track-panel">
